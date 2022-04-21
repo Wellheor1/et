@@ -3,3 +3,4 @@ __pycache__/
 .idea/
 *package-lock.json
 *.pyc
+et-frontend/package-lock.json
