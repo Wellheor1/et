@@ -1,7 +1,31 @@
 <template>
   <v-container fluid>
     <v-card>
-      <v-data-table :headers="headers" :items="items" :items-per-page="10"></v-data-table>
+      <v-data-table :headers="headers" :items="items" :items-per-page="10">
+<!--        <template v-slot:item="{ item }">-->
+<!--          <template v-for="(header, i) in headers">-->
+<!--            <v-edit-dialog :return-value.sync="item[headervalue]" :key="i">{{item[header.value]}}-->
+<!--              <template v-slot:input>-->
+<!--                <v-text-field></v-text-field>-->
+<!--              </template>-->
+<!--            </v-edit-dialog>-->
+<!--          </template>-->
+<!--        </template>-->
+        <template v-slot:body="{ items, headers }">
+          <tbody>
+            <tr v-for="(item,idx) in items" :key="idx">
+              <td v-for="(header,key) in headers" :key="key">
+                <v-edit-dialog :return-value.sync="item[header.value]" @save="save" @cancel="cancel" @open="open"
+                  @close="close" large cancel-text="Отменить" save-text="Сохранить" >{{item[header.value]}}
+                  <template v-slot:input>
+                    <v-text-field v-model="item[header.value]" label="Edit" single-line></v-text-field>
+                  </template>
+                </v-edit-dialog>
+              </td>
+            </tr>
+          </tbody>
+        </template>
+      </v-data-table>
     </v-card>
   </v-container>
 </template>
@@ -54,9 +78,6 @@ export default {
         { text: 'Кол-во выходных', value: 'amountMonths' }
       ],
       items: [
-        { name: 'fsdfsd', number: 4343, post: 'Директор', date1: '8', date2: '6', date3: '8', date4: '4', date5: '5', date6: 6, date7: 9, date8: 8, date9: 5, date10: 6, date11: 9, date12: 8, date13: 5, date14: 5, date15: 7 },
-        { name: 'fsdfsd', number: 4343, post: 'Директор', date1: '8', date2: '6', date3: '8', date4: '4', date5: '5', date6: 6, date7: 9, date8: 8, date9: 5, date10: 6, date11: 9, date12: 8, date13: 5, date14: 5, date15: 7 },
-        { name: 'fsdfsd', number: 4343, post: 'Директор', date1: '8', date2: '6', date3: '8', date4: '4', date5: '5', date6: 6, date7: 9, date8: 8, date9: 5, date10: 6, date11: 9, date12: 8, date13: 5, date14: 5, date15: 7 },
         { name: 'fsdfsd', number: 4343, post: 'Директор', date1: '8', date2: '6', date3: '8', date4: '4', date5: '5', date6: 6, date7: 9, date8: 8, date9: 5, date10: 6, date11: 9, date12: 8, date13: 5, date14: 5, date15: 7 },
         { name: 'fsdfsd', number: 4343, post: 'Директор', date1: '8', date2: '6', date3: '8', date4: '4', date5: '5', date6: 6, date7: 9, date8: 8, date9: 5, date10: 6, date11: 9, date12: 8, date13: 5, date14: 5, date15: 7 },
         { name: 'fsdfsd', number: 4343, post: 'Директор', date1: '8', date2: '6', date3: '8', date4: '4', date5: '5', date6: 6, date7: 9, date8: 8, date9: 5, date10: 6, date11: 9, date12: 8, date13: 5, date14: 5, date15: 7 },

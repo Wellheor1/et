@@ -18,7 +18,6 @@
       <v-spacer></v-spacer>
       <v-toolbar-items app class="hidden-sm-and-down">
         <v-btn depressed color="primary" v-for="(link, i) in links" :key="i" :to='link.url'>
-<!--          <v-icon left>{{ link.icon }}</v-icon>-->
             {{link.title}}
         </v-btn>
       </v-toolbar-items>
