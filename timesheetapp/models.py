@@ -32,5 +32,11 @@ class TimeWork(models.Model):
     employee = models.ForeignKey(Employees, on_delete=models.CASCADE)
     date = models.DateField(auto_now_add=True)
     night_hours = models.DecimalField(max_digits=10, decimal_places=2)
-    all_hours = models.DecimalField(max_digits=10, decimal_places=2)
+    common_hours = models.DecimalField(max_digits=10, decimal_places=2)
+
+
+class Holidays(models.Model):
+    year = models.IntegerField
+    day = models.DateField()
+
 
