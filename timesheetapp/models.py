@@ -25,7 +25,7 @@ class Employees(models.Model):
     type_post = models.ForeignKey(TypesPosts, on_delete=models.CASCADE)
     post = models.ForeignKey(Posts, on_delete=models.CASCADE)
     department = models.ForeignKey(Departments, on_delete=models.CASCADE)
-    account_number = models.DecimalField(max_digits=10, decimal_places=2)
+    tabel_number = models.DecimalField(max_digits=10, decimal_places=2)
 
 
 class TimeWork(models.Model):
