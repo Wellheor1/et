@@ -11,7 +11,7 @@ from reportlab.lib.units import mm
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfgen import canvas
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak, Table, TableStyle
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
 from datetime import datetime as dt
 
 pdfmetrics.registerFont(TTFont('PTAstraSerif', 'PT-Astra-Serif_Regular.ttf'))
@@ -23,7 +23,8 @@ def create_document():
                             rightMargin=10 * mm,
                             leftMargin=5 * mm,
                             topMargin=2 * mm,
-                            bottomMargin=40 * mm)
+                            bottomMargin=40 * mm,
+                            title = 'Табель учёта рабочего времени')
 
     styleSheet = getSampleStyleSheet()
     style = styleSheet["Normal"]
