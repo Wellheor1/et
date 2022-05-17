@@ -32,7 +32,6 @@ def create_document():
     style.fontSize = 10
     style.alignment = TA_JUSTIFY
 
-
     styleCenterBold = copy.deepcopy(style)
     styleCenterBold.fontName = "PTAstraSerifBold"
     styleCenterBold.fontSize = 10
@@ -65,7 +64,7 @@ def create_document():
     styleCenterDataBold.fontName = "PTAstraSerifBold"
 
     styleCenterDataTitle = copy.deepcopy(styleCenterSup)
-    styleCenterDataTitle.fontSize = 8
+    styleCenterDataTitle.fontSize = 7
 
     objs = []
     department_table_number = 27
@@ -145,7 +144,7 @@ def create_document():
                 ('LEFTPADDING', (0, 0), (-1, -1), 1),
                 ('RIGHTPADDING', (0, 0), (-1, -1), 1),
                 ('BOTTOMTPADDING', (0, 0), (-1, -1), -1),
-                ('TOPPADDING', (0, 0), (-1, -1), -1),
+                ('TOPPADDING', (0, 0), (-1, -1), 3)
             ]
         )
     )
@@ -164,11 +163,10 @@ def create_document():
     summ_all = [
         Paragraph('Всего дней (часов) явок (неявок) за месяц', styleCenterDataTitle),
         Paragraph('Всего отработано часов', styleCenterDataTitle),
-        Paragraph('Ноч<br/>ные', styleCenterDataTitle),
-        Paragraph('Выход<br/>ные', styleCenterDataTitle),
-        Paragraph('Празд<br/>ничные', styleCenterDataTitle),
+        Paragraph('Ночные', styleCenterDataTitle),
+        Paragraph('Выходные', styleCenterDataTitle),
+        Paragraph('Праздничные', styleCenterDataTitle),
         ]
-
 
     title.extend(date_month_start)
     title.extend(summ_day_15)
@@ -179,66 +177,15 @@ def create_document():
 
     employees = [
         {"person": "Прет111ориус Т.Л.", "tabel_number": "885", "post": "Заведующий кабинетом врач травматолог-ортопед",
-         "hours15": [f'{x}' for x in range(1, 16)], "summ_15": '324', "hours30": [f'{x}' for x in range(16, last_day_month+1)],
+         "hours15": [f'{x}' for x in range(1, 16)], "summ_15": '324', "hours30":
+             [f'{x}' for x in range(16, last_day_month+1)],
          "common_days": "31", "common_hours": "555", "night_hours": '33', "weekends_hours": "30",
          "holidays_hours": "10"},
         {"person": "Прет2222ориус Т.Л.", "tabel_number": "8835", "post": "врач травматолог-ортопед внутр. совместитель",
-         "hours15": [f'{x}' for x in range(1, 16)], "summ_15": '324', "hours30": [f'{x}' for x in range(16, last_day_month+1)],
+         "hours15": [f'{x}' for x in range(1, 16)], "summ_15": '324', "hours30":
+             [f'{x}' for x in range(16, last_day_month+1)],
          "common_days": "31", "common_hours": "555", "night_hours": '33', "weekends_hours": "30",
-         "holidays_hours": "10"},
-        {"person": "Прет3333ориус Т.Л.", "tabel_number": "8853", "post": "Заведующий",
-         "hours15": [f'{x}' for x in range(1, 16)], "summ_15": '324', "hours30": [f'{x}' for x in range(16, last_day_month+1)],
-         "common_days": "31", "common_hours": "555", "night_hours": '33', "weekends_hours": "30",
-         "holidays_hours": "10"},
-        {"person": "Прет4444ориус Т.Л.", "tabel_number": "8853", "post": "Заведующий",
-         "hours15": [f'{x}' for x in range(1, 16)], "summ_15": '324', "hours30": [f'{x}' for x in range(16, last_day_month+1)],
-         "common_days": "31", "common_hours": "555", "night_hours": '33', "weekends_hours": "30",
-         "holidays_hours": "10"},
-        {"person": "Прет5555ориус Т.Л.", "tabel_number": "8853", "post": "Заведующий",
-         "hours15": [f'{x}' for x in range(1, 16)], "summ_15": '324', "hours30": [f'{x}' for x in range(16, last_day_month+1)],
-         "common_days": "31", "common_hours": "555", "night_hours": '33', "weekends_hours": "30",
-         "holidays_hours": "10"},
-        {"person": "Прет6666ориус Т.Л.", "tabel_number": "8853", "post": "Заведующий",
-         "hours15": [f'{x}' for x in range(1, 16)], "summ_15": '324', "hours30": [f'{x}' for x in range(16, last_day_month+1)],
-         "common_days": "31", "common_hours": "555", "night_hours": '33', "weekends_hours": "30",
-         "holidays_hours": "10"},
-        {"person": "Прет6666ориус Т.Л.", "tabel_number": "8853", "post": "Заведующий",
-         "hours15": [f'{x}' for x in range(1, 16)], "summ_15": '324', "hours30": [f'{x}' for x in range(16, last_day_month+1)],
-         "common_days": "31", "common_hours": "555", "night_hours": '33', "weekends_hours": "30",
-         "holidays_hours": "10"},
-        {"person": "Прет6666ориус Т.Л.", "tabel_number": "8853", "post": "Заведующий",
-         "hours15": [f'{x}' for x in range(1, 16)], "summ_15": '324', "hours30": [f'{x}' for x in range(16, last_day_month+1)],
-         "common_days": "31", "common_hours": "555", "night_hours": '33', "weekends_hours": "30",
-         "holidays_hours": "10"},
-        {"person": "Прет6666ориус Т.Л.", "tabel_number": "8853", "post": "Заведующий",
-         "hours15": [f'{x}' for x in range(1, 16)], "summ_15": '324', "hours30": [f'{x}' for x in range(16, last_day_month+1)],
-         "common_days": "31", "common_hours": "555", "night_hours": '33', "weekends_hours": "30",
-         "holidays_hours": "10"},
-        {"person": "Прет6666ориус Т.Л.", "tabel_number": "8853", "post": "Заведующий",
-         "hours15": [f'{x}' for x in range(1, 16)], "summ_15": '324', "hours30": [f'{x}' for x in range(16, last_day_month+1)],
-         "common_days": "31", "common_hours": "555", "night_hours": '33', "weekends_hours": "30",
-         "holidays_hours": "10"},
-        {"person": "Прет6666ориус Т.Л.", "tabel_number": "8853", "post": "Заведующий",
-         "hours15": [f'{x}' for x in range(1, 16)], "summ_15": '324', "hours30": [f'{x}' for x in range(16, last_day_month+1)],
-         "common_days": "31", "common_hours": "555", "night_hours": '33', "weekends_hours": "30",
-         "holidays_hours": "10"},
-        {"person": "Прет6666ориус Т.Л.", "tabel_number": "8853", "post": "Заведующий",
-         "hours15": [f'{x}' for x in range(1, 16)], "summ_15": '324', "hours30": [f'{x}' for x in range(16, last_day_month+1)],
-         "common_days": "31", "common_hours": "555", "night_hours": '33', "weekends_hours": "30",
-         "holidays_hours": "10"},
-        {"person": "Прет6666ориус Т.Л.", "tabel_number": "8853", "post": "Заведующий",
-         "hours15": [f'{x}' for x in range(1, 16)], "summ_15": '324', "hours30": [f'{x}' for x in range(16, last_day_month+1)],
-         "common_days": "31", "common_hours": "555", "night_hours": '33', "weekends_hours": "30",
-         "holidays_hours": "10"},
-        {"person": "Прет6666ориус Т.Л.", "tabel_number": "8853", "post": "Заведующий",
-         "hours15": [f'{x}' for x in range(1, 16)], "summ_15": '324', "hours30": [f'{x}' for x in range(16, last_day_month+1)],
-         "common_days": "31", "common_hours": "555", "night_hours": '33', "weekends_hours": "30",
-         "holidays_hours": "10"},
-        {"person": "Прет6666ориус Т.Л.", "tabel_number": "8853", "post": "Заведующий",
-         "hours15": [f'{x}' for x in range(1, 16)], "summ_15": '324', "hours30": [f'{x}' for x in range(16, last_day_month+1)],
-         "common_days": "31", "common_hours": "555", "night_hours": '33', "weekends_hours": "30",
-         "holidays_hours": "10"},
-
+         "holidays_hours": "10"}
     ]
     employees_data = []
     for employ in employees:
@@ -270,9 +217,9 @@ def create_document():
         title,
         num
     ]
-    opinion.extend(employees_data)
 
-    tbl = Table(opinion)
+    opinion.extend(employees_data)
+    tbl = Table(opinion,)
     tbl.setStyle(
         TableStyle(
             [
@@ -289,19 +236,8 @@ def create_document():
             ]
         )
     )
-    count = 0
-    for elem in opinion:
-        if count > 2:
-            print(f"Элемент: {count}")
-            count1 = 0
-            for x in elem:
-                if count1 == 0:
-                    print(f'{x.text}')
-                count1 += 1
-        count += 1
 
     objs.append(tbl)
-
     def first_pages(canvas, doc):
         canvas.saveState()
         canvas.setFont('PTAstraSerif', 8)

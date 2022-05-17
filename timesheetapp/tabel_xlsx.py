@@ -44,28 +44,32 @@ styleCenterBorder.border = Border(left=bd, right=bd, top=bd, bottom=bd)
 styleCenterBorder.font = Font(size=8)
 styleCenterBorder.alignment = Alignment(wrap_text=True, horizontal='center', vertical='center')
 
+styleCenterSupBorderTop = NamedStyle(name='styleCenterSupBorderTop')
+styleCenterSupBorderTop.font = Font(size=6)
+styleCenterSupBorderTop.border = Border(top=bd)
+styleCenterSupBorderTop.alignment = Alignment(horizontal='center', vertical='top')
+
 styleCenterDataBorder = NamedStyle(name='styleCenterDataBorder')
-bd1 = Side(style='thin', color='000000')
-styleCenterDataBorder.border = Border(left=bd1, right=bd1, top=bd1, bottom=bd1)
+# bd1 = Side(style='thin', color='000000')
+styleCenterDataBorder.border = Border(left=bd, right=bd, top=bd, bottom=bd)
 styleCenterDataBorder.alignment = Alignment(wrap_text=True, horizontal='center', vertical='center')
 
 styleCenterBorderBold = NamedStyle(name='styleCenterDataBorderBold')
-bd2 = Side(style='thin', color='000000')
-styleCenterBorderBold.border = Border(left=bd2, right=bd2, top=bd2, bottom=bd2)
+# bd2 = Side(style='thin', color='000000')
+styleCenterBorderBold.border = Border(left=bd, right=bd, top=bd, bottom=bd)
 styleCenterBorderBold.font = Font(bold=True, size=10)
 styleCenterBorderBold.alignment = Alignment(wrap_text=True, horizontal='center', vertical='center')
 
 styleCenterBorderBottom = NamedStyle(name='styleCenterBorderBottom')
-bd = Side(style='thin', color='000000')
+# bd = Side(style='thin', color='000000')
 styleCenterBorderBottom.border = Border(bottom=bd)
 styleCenterBorderBottom.alignment = Alignment(horizontal='center', vertical='center')
 
 styleCenterBorderBottomMin = NamedStyle(name='styleCenterBorderBottomMin')
-bd = Side(style='thin', color='000000')
+# bd = Side(style='thin', color='000000')
 styleCenterBorderBottomMin.border = Border(bottom=bd)
-styleCenterBorderBottomMin.font = Font(size=8)
+styleCenterBorderBottomMin.font = Font(size=9)
 styleCenterBorderBottomMin.alignment = Alignment(horizontal='center', vertical='bottom')
-
 
 styleCenterTitleBold = NamedStyle(name='styleCenterTitleBold')
 styleCenterTitleBold.alignment = Alignment(horizontal='center', vertical='center')
@@ -168,7 +172,6 @@ for column in active_list['D12':f'{column_name}12']:
     for cell in column:
         cell.style = styleCenterDataBorder
 
-
 for column in active_list['D13': f'{column_name}13']:
     counter = 1
     for cell in column:
@@ -200,6 +203,11 @@ for column in active_list['D13': f'{column_name}13']:
         cell.font = Font(size=8)
         counter += 1
 
+for column in active_list['A14':f'{column_name}14']:
+    for idx, cell in enumerate(column, 1):
+        cell.value = idx
+        cell.style = styleCenterBorder
+
 active_list.column_dimensions['A'].width = 13
 active_list.column_dimensions['B'].width = 4.7
 active_list.column_dimensions['C'].width = 10
@@ -225,7 +233,7 @@ employees = [
          "common_days": "31", "common_hours": "555", "night_hours": '33', "weekends_hours": "30",
          "holidays_hours": "10"}
     ]
-num_row = 13
+num_row = 14
 for row, entry in enumerate(employees, start=1):
     active_list.cell(row=row + num_row, column=1, value=entry["person"])
     active_list.cell(row=row + num_row, column=1).style = styleCenterDataBorder
@@ -256,41 +264,58 @@ max_row = active_list.max_row
 
 active_list[f'A{max_row+2}'].value = 'Главный врач'
 active_list[f'A{max_row+2}'].style = styleCenterBorderBottomMin
-active_list.merge_cells(start_row=max_row+2, start_column=3, end_row=max_row+2, end_column=9)
-active_list[f'C{max_row+2}'].value = f'{main_doctor}'
-active_list[f'C{max_row+2}'].style = styleCenterBorderBottomMin
-for column in active_list[f'C{max_row+2}':f'H{max_row+2}']:
+active_list.merge_cells(start_row=max_row+2, start_column=4, end_row=max_row+2, end_column=9)
+active_list[f'D{max_row+2}'].value = f'{main_doctor}'
+for column in active_list[f'D{max_row+2}':f'I{max_row+2}']:
     for cell in column:
         cell.style = styleCenterBorderBottomMin
-        cell.font = Font(size=8)
+        cell.alignment = Alignment(horizontal='left', vertical='bottom')
+
+active_list[f'A{max_row+3}'].value = '(Должность)'
+active_list[f'A{max_row+3}'].style = styleCenterSup
+active_list[f'C{max_row+3}'].value = '(Подпись)'
+active_list[f'C{max_row+3}'].style = styleCenterSupBorderTop
 
 active_list[f'A{max_row+4}'].value = 'Зав. отделения'
 active_list[f'A{max_row+4}'].style = styleCenterBorderBottomMin
-active_list.merge_cells(start_row=max_row+4, start_column=3, end_row=max_row+4, end_column=9)
-active_list[f'C{max_row+4}'].value = f'{head_department}'
-active_list[f'C{max_row+4}'].style = styleCenterBorderBottomMin
-for column in active_list[f'C{max_row+4}':f'H{max_row+4}']:
+active_list.merge_cells(start_row=max_row+4, start_column=4, end_row=max_row+4, end_column=9)
+active_list[f'D{max_row+4}'].value = f'{head_department}'
+for column in active_list[f'D{max_row+4}':f'I{max_row+4}']:
     for cell in column:
         cell.style = styleCenterBorderBottomMin
-        cell.font = Font(size=8)
+        cell.alignment = Alignment(horizontal='left', vertical='bottom')
+
+active_list[f'A{max_row+5}'].value = '(Должность)'
+active_list[f'A{max_row+5}'].style = styleCenterSup
+active_list[f'C{max_row+5}'].value = '(Подпись)'
+active_list[f'C{max_row+5}'].style = styleCenterSupBorderTop
 
 active_list[f'A{max_row+6}'].value = 'Старшая медсестра'
 active_list[f'A{max_row+6}'].style = styleCenterBorderBottomMin
-active_list.merge_cells(start_row=max_row+6, start_column=3, end_row=max_row+6, end_column=9)
-active_list[f'C{max_row+6}'].value = f'{old_sestra}'
-active_list[f'C{max_row+6}'].style = styleCenterBorderBottomMin
-for column in active_list[f'C{max_row+6}':f'H{max_row+6}']:
+active_list.merge_cells(start_row=max_row+6, start_column=4, end_row=max_row+6, end_column=9)
+active_list[f'D{max_row+6}'].value = f'{old_sestra}'
+for column in active_list[f'D{max_row+6}':f'I{max_row+6}']:
     for cell in column:
         cell.style = styleCenterBorderBottomMin
+        cell.alignment = Alignment(horizontal='left', vertical='bottom')
+
+active_list[f'A{max_row+7}'].value = '(Должность)'
+active_list[f'A{max_row+7}'].style = styleCenterSup
+active_list[f'C{max_row+7}'].value = '(Подпись)'
+active_list[f'C{max_row+7}'].style = styleCenterSupBorderTop
 
 active_list[f'A{max_row+8}'].value = 'Специалист о.к.'
 active_list[f'A{max_row+8}'].style = styleCenterBorderBottomMin
-active_list.merge_cells(start_row=max_row+8, start_column=3, end_row=max_row+8, end_column=9)
-active_list[f'C{max_row+8}'].value = f'{hr_specialist}'
-active_list[f'C{max_row+8}'].style = styleCenterBorderBottomMin
-for column in active_list[f'C{max_row+8}':f'H{max_row+8}']:
+active_list.merge_cells(start_row=max_row+8, start_column=4, end_row=max_row+8, end_column=9)
+active_list[f'D{max_row+8}'].value = f'{hr_specialist}'
+for column in active_list[f'D{max_row+8}':f'I{max_row+8}']:
     for cell in column:
         cell.style = styleCenterBorderBottomMin
+        cell.alignment = Alignment(horizontal='left', vertical='bottom')
 
+active_list[f'A{max_row+9}'].value = '(Должность)'
+active_list[f'A{max_row+9}'].style = styleCenterSup
+active_list[f'C{max_row+9}'].value = '(Подпись)'
+active_list[f'C{max_row+9}'].style = styleCenterSupBorderTop
 
 book.save('tabel.xlsx')
