@@ -10,12 +10,11 @@ from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.units import mm
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
-from reportlab.pdfgen import canvas
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
-from datetime import datetime as dt
 
 pdfmetrics.registerFont(TTFont('PTAstraSerif', 'PT-Astra-Serif_Regular.ttf'))
 pdfmetrics.registerFont(TTFont('PTAstraSerifBold', 'PT-Astra-Serif_Bold.ttf'))
+
 
 def create_document():
     doc = SimpleDocTemplate("tabel.pdf",
@@ -24,47 +23,48 @@ def create_document():
                             leftMargin=5 * mm,
                             topMargin=2 * mm,
                             bottomMargin=40 * mm,
-                            title = 'Табель учёта рабочего времени')
+                            title='Табель учёта рабочего времени')
 
-    styleSheet = getSampleStyleSheet()
-    style = styleSheet["Normal"]
+    style_sheet = getSampleStyleSheet()
+    style = style_sheet["Normal"]
     style.fontName = "PTAstraSerif"
     style.fontSize = 10
     style.alignment = TA_JUSTIFY
 
-    styleCenterBold = copy.deepcopy(style)
-    styleCenterBold.fontName = "PTAstraSerifBold"
-    styleCenterBold.fontSize = 10
-    styleCenterBold.alignment = TA_CENTER
+    style_center_bold = copy.deepcopy(style)
+    style_center_bold.fontName = "PTAstraSerifBold"
+    style_center_bold.fontSize = 10
+    style_center_bold.alignment = TA_CENTER
 
-    styleCenter = copy.deepcopy(styleCenterBold)
-    styleCenter.fontName = "PTAstraSerif"
+    style_center = copy.deepcopy(style_center_bold)
+    style_center.fontName = "PTAstraSerif"
 
-    styleLeft = copy.deepcopy(style)
-    styleLeft.fontSize = 6
-    styleLeft.alignment = TA_LEFT
+    style_left = copy.deepcopy(style)
+    style_left.fontSize = 6
+    style_left.alignment = TA_LEFT
 
-    styleRight = copy.deepcopy(styleLeft)
-    styleRight.alignment = TA_RIGHT
+    style_right = copy.deepcopy(style_left)
+    style_right.alignment = TA_RIGHT
 
-    styleRightBold = copy.deepcopy(styleRight)
-    styleRightBold.fontName = "PTAstraSerifBold"
+    style_right_bold = copy.deepcopy(style_right)
+    style_right_bold.fontName = "PTAstraSerifBold"
 
-    styleCenterTitle = copy.deepcopy(styleRight)
-    styleCenterTitle.alignment = TA_CENTER
+    style_center_title = copy.deepcopy(style_right)
+    style_center_title.alignment = TA_CENTER
+    style_center_title.fontSize = 7
 
-    styleCenterSup = copy.deepcopy(styleCenterTitle)
-    styleCenterSup.fontSize = 5
+    style_center_sup = copy.deepcopy(style_center_title)
+    style_center_sup.fontSize = 5
 
-    styleCenterData = copy.deepcopy(styleCenterSup)
-    styleCenterData.fontSize = 10
+    style_center_data = copy.deepcopy(style_center_sup)
+    style_center_data.fontSize = 10
 
-    styleCenterDataBold = copy.deepcopy(styleCenterSup)
-    styleCenterDataBold.fontSize = 10
-    styleCenterDataBold.fontName = "PTAstraSerifBold"
+    style_center_data_bold = copy.deepcopy(style_center_sup)
+    style_center_data_bold.fontSize = 10
+    style_center_data_bold.fontName = "PTAstraSerifBold"
 
-    styleCenterDataTitle = copy.deepcopy(styleCenterSup)
-    styleCenterDataTitle.fontSize = 7
+    style_center_data_title = copy.deepcopy(style_center_sup)
+    style_center_data_title.fontSize = 7
 
     objs = []
     department_table_number = 27
@@ -82,57 +82,57 @@ def create_document():
     old_sestra = 'Тотьямина Д.С.'
     hr_specialist = 'Краснова С.А.'
 
-
-    objs.append(Paragraph('Утв приказом Минфина России <br/> от 30 марта 2015 г. № 52н', styleRightBold))
+    objs.append(Paragraph('Утв приказом Минфина России <br/> от 30 марта 2015 г. № 52н', style_right_bold))
     opinion = [
         [
-            Paragraph('', styleLeft),
-            Paragraph(f'Табель № {department_table_number}', styleCenterBold),
-            Paragraph('', styleRight),
-            Paragraph('', styleCenterTitle),
+            Paragraph('', style_left),
+            Paragraph(f'Табель № <u>{department_table_number}</u>', style_center_bold),
+            Paragraph('', style_right),
+            Paragraph('', style_center_title)
         ],
         [
-            Paragraph('', styleLeft),
-            Paragraph('учета использования рабочего времени', styleCenter),
-            Paragraph('', styleRight),
-            Paragraph('Коды', styleCenterTitle),
+            Paragraph('', style_left),
+            Paragraph('учета использования рабочего времени', style_center),
+            Paragraph('', style_right),
+            Paragraph('Коды', style_center_title)
         ],
         [
-            Paragraph('', styleLeft),
-            Paragraph('', styleCenter),
-            Paragraph('Форма ОКУД', styleRight),
-            Paragraph('0504421', styleCenterTitle),
+            Paragraph('', style_left),
+            Paragraph('', style_center),
+            Paragraph('Форма ОКУД', style_right),
+            Paragraph('0504421', style_center_title)
         ],
         [
-            Paragraph('', styleLeft),
-            Paragraph(f'За период с {first_day_month} по {last_day_month} {month_name}', styleCenter),
-            Paragraph('Дата', styleRight),
-            Paragraph(f'{date_now}', styleCenterTitle),
+            Paragraph('', style_left),
+            Paragraph(f'За период с {first_day_month} по {last_day_month} {month_name} {current_year} года',
+                      style_center),
+            Paragraph('Дата', style_right),
+            Paragraph(f'{date_now}', style_center_title)
         ],
         [
-            Paragraph('Учреждение', styleLeft),
-            Paragraph(f'{hospital_name}', styleCenter),
-            Paragraph('по ОКПО', styleRight),
-            Paragraph('', styleCenterTitle),
+            Paragraph('Учреждение', style_left),
+            Paragraph(f'{hospital_name}', style_center),
+            Paragraph('по ОКПО', style_right),
+            Paragraph('', style_center_title)
         ],
         [
-            Paragraph('Структурное подразделение', styleLeft),
-            Paragraph(f'{department_name}', styleCenterBold),
-            Paragraph('', styleRight),
-            Paragraph('', styleCenterTitle),
+            Paragraph('Структурное подразделение', style_left),
+            Paragraph(f'{department_name}', style_center_bold),
+            Paragraph('', style_right),
+            Paragraph('', style_center_title)
         ],
         [
-            Paragraph('Вид табеля', styleLeft),
-            Paragraph(f'{tabel_type}', styleCenter),
-            Paragraph('Номер корректировки', styleRight),
-            Paragraph('', styleCenterTitle),
+            Paragraph('Вид табеля', style_left),
+            Paragraph(f'{tabel_type}', style_center),
+            Paragraph('Номер корректировки', style_right),
+            Paragraph('', style_center_title)
         ],
         [
-            Paragraph('', styleLeft),
-            Paragraph('(первичный - 0, корректирующий 1,2  и т.д)', styleCenterSup),
-            Paragraph('Дата формирования документа', styleRight),
-            Paragraph(f'{date_now}', styleCenterTitle),
-        ],
+            Paragraph('', style_left),
+            Paragraph('(первичный - 0, корректирующий 1,2  и т.д)', style_center_sup),
+            Paragraph('Дата формирования документа', style_right),
+            Paragraph(f'{date_now}', style_center_title)
+        ]
     ]
     tbl = Table(opinion, [30 * mm, 180 * mm, 40 * mm, 25 * mm])
     tbl.setStyle(
@@ -144,7 +144,7 @@ def create_document():
                 ('LEFTPADDING', (0, 0), (-1, -1), 1),
                 ('RIGHTPADDING', (0, 0), (-1, -1), 1),
                 ('BOTTOMTPADDING', (0, 0), (-1, -1), -1),
-                ('TOPPADDING', (0, 0), (-1, -1), 3)
+                ('TOPPADDING', (0, 0), (-1, -1), -1)
             ]
         )
     )
@@ -153,73 +153,71 @@ def create_document():
     objs.append(Spacer(1, 12))
 
     title = [
-            Paragraph('', styleCenterDataTitle),
-            Paragraph('', styleCenterDataTitle),
-            Paragraph('', styleCenterDataTitle),
-        ]
-    date_month_start = [Paragraph(f'{x}', styleCenterDataTitle) for x in range(1, 16)]
-    summ_day_15 = [Paragraph('Итого дней (часов) явок (неявок) с 1-15', styleCenterDataTitle)]
-    date_month_end = [Paragraph(f'{x}', styleCenterDataTitle) for x in range(16, last_day_month+1)]
+        Paragraph('', style_center_data_title),
+        Paragraph('', style_center_data_title),
+        Paragraph('', style_center_data_title),
+    ]
+    date_month_start = [Paragraph(f'{x}', style_center_data_title) for x in range(1, 16)]
+    summ_day_15 = [Paragraph('Итого дней (часов) явок (неявок) с 1-15', style_center_data_title)]
+    date_month_end = [Paragraph(f'{x}', style_center_data_title) for x in range(16, last_day_month + 1)]
     summ_all = [
-        Paragraph('Всего дней (часов) явок (неявок) за месяц', styleCenterDataTitle),
-        Paragraph('Всего отработано часов', styleCenterDataTitle),
-        Paragraph('Ночные', styleCenterDataTitle),
-        Paragraph('Выходные', styleCenterDataTitle),
-        Paragraph('Праздничные', styleCenterDataTitle),
-        ]
+        Paragraph('Всего дней (часов) явок (неявок) за месяц', style_center_data_title),
+        Paragraph('Всего отработано часов', style_center_data_title),
+        Paragraph('Ночные', style_center_data_title),
+        Paragraph('Выходные', style_center_data_title),
+        Paragraph('Праздничные', style_center_data_title),
+    ]
 
     title.extend(date_month_start)
     title.extend(summ_day_15)
     title.extend(date_month_end)
     title.extend(summ_all)
 
-    num = [Paragraph(f'{x}', styleCenterDataTitle) for x in range(1, last_day_month+6)]
+    num = [Paragraph(f'{x}', style_center_data_title) for x in range(1, last_day_month + 10)]
 
     employees = [
         {"person": "Прет111ориус Т.Л.", "tabel_number": "885", "post": "Заведующий кабинетом врач травматолог-ортопед",
          "hours15": [f'{x}' for x in range(1, 16)], "summ_15": '324', "hours30":
-             [f'{x}' for x in range(16, last_day_month+1)],
+             [f'{x}' for x in range(16, last_day_month + 1)],
          "common_days": "31", "common_hours": "555", "night_hours": '33', "weekends_hours": "30",
          "holidays_hours": "10"},
         {"person": "Прет2222ориус Т.Л.", "tabel_number": "8835", "post": "врач травматолог-ортопед внутр. совместитель",
          "hours15": [f'{x}' for x in range(1, 16)], "summ_15": '324', "hours30":
-             [f'{x}' for x in range(16, last_day_month+1)],
+             [f'{x}' for x in range(16, last_day_month + 1)],
          "common_days": "31", "common_hours": "555", "night_hours": '33', "weekends_hours": "30",
          "holidays_hours": "10"}
     ]
     employees_data = []
     for employ in employees:
         employee_data = []
-        hours15 = []
-        hours30 = []
-        employee_data.append(Paragraph(employ["person"], styleCenterData))
-        employee_data.append(Paragraph(employ["tabel_number"], styleCenterDataBold))
-        employee_data.append(Paragraph(employ["post"], styleCenterDataTitle))
-        hours15 = [Paragraph(f'{x}', styleCenterData) for x in employ["hours15"]]
+        employee_data.append(Paragraph(employ["person"], style_center_data))
+        employee_data.append(Paragraph(employ["tabel_number"], style_center_data_bold))
+        employee_data.append(Paragraph(employ["post"], style_center_data_title))
+        hours15 = [Paragraph(f'{x}', style_center_data) for x in employ["hours15"]]
         employee_data.extend(hours15)
-        employee_data.append(Paragraph(employ["summ_15"], styleCenterData))
-        hours30 = [Paragraph(f'{x}', styleCenterData) for x in employ["hours30"]]
+        employee_data.append(Paragraph(employ["summ_15"], style_center_data))
+        hours30 = [Paragraph(f'{x}', style_center_data) for x in employ["hours30"]]
         employee_data.extend(hours30)
-        employee_data.append(Paragraph(employ["common_days"], styleCenterData))
-        employee_data.append(Paragraph(employ["common_hours"], styleCenterData))
-        employee_data.append(Paragraph(employ["night_hours"], styleCenterData))
-        employee_data.append(Paragraph(employ["weekends_hours"], styleCenterData))
-        employee_data.append(Paragraph(employ["holidays_hours"], styleCenterData))
+        employee_data.append(Paragraph(employ["common_days"], style_center_data))
+        employee_data.append(Paragraph(employ["common_hours"], style_center_data))
+        employee_data.append(Paragraph(employ["night_hours"], style_center_data))
+        employee_data.append(Paragraph(employ["weekends_hours"], style_center_data))
+        employee_data.append(Paragraph(employ["holidays_hours"], style_center_data))
         employees_data.append(employee_data)
 
     opinion = [
         [
-            Paragraph('Фамилия, имя, отчество', styleCenterData),
-            Paragraph('Учетный номер', styleCenterData),
-            Paragraph('Должность (профессия)', styleCenterData),
-            Paragraph('Числа месяца', styleCenterData)
+            Paragraph('Фамилия, имя, отчество', style_center_data),
+            Paragraph('Учетный номер', style_center_data),
+            Paragraph('Должность (профессия)', style_center_data),
+            Paragraph('Числа месяца', style_center_data)
         ],
         title,
         num
     ]
 
     opinion.extend(employees_data)
-    tbl = Table(opinion,)
+    tbl = Table(opinion, [30 * mm, 10 * mm, 20 * mm, None])
     tbl.setStyle(
         TableStyle(
             [
@@ -229,63 +227,64 @@ def create_document():
                 ('SPAN', (1, 0), (1, 1)),
                 ('SPAN', (2, 0), (2, 1)),
                 ('SPAN', (3, 0), (-1, 0)),
-                ('LEFTPADDING', (3, 0), (-1, -1), 0.2),
-                ('RIGHTPADDING', (3, 0), (-1, -1), 0.2),
-                ('BOTTOMTPADDING', (3, 0), (-1, -1), 2),
-                ('TOPPADDING', (3, 0), (-1, -1), 2),
+                ('LEFTPADDING', (0, 0), (-1, -1), 1),
+                ('RIGHTPADDING', (0, 0), (-1, -1), 1),
+                ('BOTTOMTPADDING', (0, 0), (-1, -1), -1),
+                ('TOPPADDING', (0, 0), (-1, -1), -1),
+                ('TOPPADDING', (0, 2), (-1, 2), 4)
             ]
         )
     )
 
     objs.append(tbl)
+
     def first_pages(canvas, doc):
         canvas.saveState()
         canvas.setFont('PTAstraSerif', 8)
 
-        canvas.drawString(11 * mm, 41 * mm, "Главный врач")
-        canvas.drawString(75 * mm, 41 * mm, f"{main_doctor}")
+        canvas.drawString(11 * mm, 41 * mm, 'Главный врач')
+        canvas.drawString(75 * mm, 41 * mm, f'{main_doctor}')
 
         canvas.line(7 * mm, 40 * mm, 33 * mm, 40 * mm)
         canvas.line(45 * mm, 40 * mm, 101 * mm, 40 * mm)
 
-        canvas.drawString(12 * mm, 37 * mm, "(должность)")
-        canvas.drawString(50 * mm, 37 * mm, "(подпись)")
+        canvas.drawString(12 * mm, 37 * mm, '(должность)')
+        canvas.drawString(50 * mm, 37 * mm, '(подпись)')
 
-        canvas.drawString(10 * mm, 31 * mm, "Зав. отделением")
-        canvas.drawString(75 * mm, 31 * mm, f"{head_department}")
+        canvas.drawString(10 * mm, 31 * mm, 'Зав. отделением')
+        canvas.drawString(75 * mm, 31 * mm, f'{head_department}')
 
         canvas.line(7 * mm, 30 * mm, 33 * mm, 30 * mm)
         canvas.line(45 * mm, 30 * mm, 101 * mm, 30 * mm)
 
-        canvas.drawString(12 * mm, 27 * mm, "(должность)")
-        canvas.drawString(50 * mm, 27 * mm, "(подпись)")
+        canvas.drawString(12 * mm, 27 * mm, '(должность)')
+        canvas.drawString(50 * mm, 27 * mm, '(подпись)')
 
-        canvas.drawString(8 * mm, 21 * mm, "Старшая медсестра")
-        canvas.drawString(75 * mm, 21 * mm, f"{old_sestra}")
+        canvas.drawString(8 * mm, 21 * mm, 'Старшая медсестра')
+        canvas.drawString(75 * mm, 21 * mm, f'{old_sestra}')
 
         canvas.line(7 * mm, 20 * mm, 33 * mm, 20 * mm)
         canvas.line(45 * mm, 20 * mm, 101 * mm, 20 * mm)
 
-        canvas.drawString(12 * mm, 17 * mm, "(должность)")
-        canvas.drawString(50 * mm, 17 * mm, "(подпись)")
+        canvas.drawString(12 * mm, 17 * mm, '(должность)')
+        canvas.drawString(50 * mm, 17 * mm, '(подпись)')
 
-        canvas.drawString(10 * mm, 11 * mm, "Специалист о.к.")
-        canvas.drawString(75 * mm, 11 * mm, f"{hr_specialist}")
+        canvas.drawString(10 * mm, 11 * mm, 'Специалист о.к.')
+        canvas.drawString(75 * mm, 11 * mm, f'{hr_specialist}')
 
         canvas.line(7 * mm, 10 * mm, 33 * mm, 10 * mm)
         canvas.line(45 * mm, 10 * mm, 101 * mm, 10 * mm)
 
-        canvas.drawString(12 * mm, 7 * mm, "(должность)")
-        canvas.drawString(50 * mm, 7 * mm, "(подпись)")
-
+        canvas.drawString(12 * mm, 7 * mm, '(должность)')
+        canvas.drawString(50 * mm, 7 * mm, '(подпись)')
 
         canvas.rect(156 * mm, 10 * mm, 112 * mm, 23 * mm, stroke=1, fill=0)
         canvas.setFont('PTAstraSerifBold', 8)
-        canvas.drawString(185 * mm, 30 * mm, "Отметка бухгалтерии о принятии настоящего табеля")
-        canvas.drawString(160 * mm, 24 * mm, "Исполнитель")
+        canvas.drawString(185 * mm, 30 * mm, 'Отметка бухгалтерии о принятии настоящего табеля')
+        canvas.drawString(160 * mm, 24 * mm, 'Исполнитель')
         canvas.setFont('PTAstraSerif', 8)
         canvas.line(180 * mm, 23 * mm, 255 * mm, 23 * mm)
-        canvas.drawString(210 * mm, 20 * mm, "(подпись)")
+        canvas.drawString(210 * mm, 20 * mm, '(подпись)')
 
         canvas.line(165 * mm, 13 * mm, 175 * mm, 13 * mm)
         canvas.line(180 * mm, 13 * mm, 210 * mm, 13 * mm)
@@ -297,49 +296,49 @@ def create_document():
         canvas.saveState()
         canvas.setFont('PTAstraSerif', 8)
 
-        canvas.drawString(11 * mm, 41 * mm, "Главный врач")
-        canvas.drawString(75 * mm, 41 * mm, f"{main_doctor}")
+        canvas.drawString(11 * mm, 41 * mm, 'Главный врач')
+        canvas.drawString(75 * mm, 41 * mm, f'{main_doctor}')
 
         canvas.line(7 * mm, 40 * mm, 33 * mm, 40 * mm)
         canvas.line(45 * mm, 40 * mm, 101 * mm, 40 * mm)
 
-        canvas.drawString(12 * mm, 37 * mm, "(должность)")
-        canvas.drawString(50 * mm, 37 * mm, "(подпись)")
+        canvas.drawString(12 * mm, 37 * mm, '(должность)')
+        canvas.drawString(50 * mm, 37 * mm, '(подпись)')
 
-        canvas.drawString(10 * mm, 31 * mm, "Зав. отделением")
-        canvas.drawString(75 * mm, 31 * mm, f"{head_department}")
+        canvas.drawString(10 * mm, 31 * mm, 'Зав. отделением')
+        canvas.drawString(75 * mm, 31 * mm, f'{head_department}')
 
         canvas.line(7 * mm, 30 * mm, 33 * mm, 30 * mm)
         canvas.line(45 * mm, 30 * mm, 101 * mm, 30 * mm)
 
-        canvas.drawString(12 * mm, 27 * mm, "(должность)")
-        canvas.drawString(50 * mm, 27 * mm, "(подпись)")
+        canvas.drawString(12 * mm, 27 * mm, '(должность)')
+        canvas.drawString(50 * mm, 27 * mm, '(подпись)')
 
-        canvas.drawString(8 * mm, 21 * mm, "Старшая медсестра")
-        canvas.drawString(75 * mm, 21 * mm, f"{old_sestra}")
+        canvas.drawString(8 * mm, 21 * mm, 'Старшая медсестра')
+        canvas.drawString(75 * mm, 21 * mm, f'{old_sestra}')
 
         canvas.line(7 * mm, 20 * mm, 33 * mm, 20 * mm)
         canvas.line(45 * mm, 20 * mm, 101 * mm, 20 * mm)
 
-        canvas.drawString(12 * mm, 17 * mm, "(должность)")
-        canvas.drawString(50 * mm, 17 * mm, "(подпись)")
+        canvas.drawString(12 * mm, 17 * mm, '(должность)')
+        canvas.drawString(50 * mm, 17 * mm, '(подпись)')
 
-        canvas.drawString(10 * mm, 11 * mm, "Специалист о.к.")
+        canvas.drawString(10 * mm, 11 * mm, 'Специалист о.к.')
         canvas.drawString(75 * mm, 11 * mm, f"{hr_specialist}")
 
         canvas.line(7 * mm, 10 * mm, 33 * mm, 10 * mm)
         canvas.line(45 * mm, 10 * mm, 101 * mm, 10 * mm)
 
-        canvas.drawString(12 * mm, 7 * mm, "(должность)")
-        canvas.drawString(50 * mm, 7 * mm, "(подпись)")
+        canvas.drawString(12 * mm, 7 * mm, '(должность)')
+        canvas.drawString(50 * mm, 7 * mm, '(подпись)')
 
         canvas.rect(156 * mm, 10 * mm, 112 * mm, 23 * mm, stroke=1, fill=0)
         canvas.setFont('PTAstraSerifBold', 8)
-        canvas.drawString(185 * mm, 30 * mm, "Отметка бухгалтерии о принятии настоящего табеля")
-        canvas.drawString(160 * mm, 24 * mm, "Исполнитель")
+        canvas.drawString(185 * mm, 30 * mm, 'Отметка бухгалтерии о принятии настоящего табеля')
+        canvas.drawString(160 * mm, 24 * mm, 'Исполнитель')
         canvas.setFont('PTAstraSerif', 8)
         canvas.line(180 * mm, 23 * mm, 255 * mm, 23 * mm)
-        canvas.drawString(210 * mm, 20 * mm, "(подпись)")
+        canvas.drawString(210 * mm, 20 * mm, '(подпись)')
 
         canvas.line(165 * mm, 13 * mm, 175 * mm, 13 * mm)
         canvas.line(180 * mm, 13 * mm, 210 * mm, 13 * mm)
